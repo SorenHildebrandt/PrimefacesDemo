@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-panelgrid.form-elements .ui-grc-2 {
+                padding-left: 60px;
+            }
+
+            @media (max-width:1024px) {
+                .ui-panelgrid.form-elements .ui-grc-2 {
+                    padding-left: 20px;
+                }
+            }
+
+            @media (max-width:640px) {
+                .ui-panelgrid.form-elements .ui-grc-2 {
+                    padding-left: 6px;
+                }
+            }
+            .dialogDemo label {
+
+                line-height: 2.1em;
+            }
+        </style>
+    </ui:define>
+
+
+    <ui:define name="title">Test Page</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h:commandButton value="load mongo" action="#{formLoadMongo.loadMongo}" update="biodata"/>
+            <br/><br/>
+            <p:panelGrid columns="2">
+                <f:facet name="header">Studenter</f:facet>
+                <p:dataTable id="bioData" value="#{formLoadMongo.studentList}" var="student"
+                             reflow="true" rowKey="#{student.choice}" paginator="true" rows="10" >
+                    <p:column headerText="Choice" sortBy="#{student.choice}">
+                        <h:outputText value="#{student.choice}" />
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{student.name}">
+                        <h:outputText value="#{student.name}" />
+                    </p:column>
+                </p:dataTable>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
