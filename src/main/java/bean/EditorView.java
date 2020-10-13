@@ -1,23 +1,28 @@
+package bean;
+
 import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-
-@Named("listernerView")
+@Named
 @RequestScoped
-public class ListernerView {
-
+public class EditorView {
     private String text;
+
+    private String text2;
 
     public String getText() {
         return text;
     }
+
     public void setText(String text) {
         this.text = text;
     }
 
-    public void handleKeyEvent() {
-        text = text.toUpperCase();
+    public String getText2() {
+        return text2;
     }
 
+    public void setText2(String text2) {
+        this.text2 = text2;
+    }
 }

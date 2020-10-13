@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 //@Stateless
-public class StudentFacade {
-    private static final Logger LOGGER = Logger.getLogger(StudentFacade.class.getName());
+public class SRTStudentFacade {
+    private static final Logger LOGGER = Logger.getLogger(SRTStudentFacade.class.getName());
     private final static String HOST = "localhost";
     private final static int PORT = 27017;
 
@@ -26,13 +26,13 @@ public class StudentFacade {
     @Inject
     private transient MongoClient mongoClient;
 
-//    public MongoClient mongoClient() {
-//        return new MongoClient(new ServerAddress(HOST, PORT));
-//    }
+    public MongoClient mongoClient() {
+        return new MongoClient(new ServerAddress(HOST, PORT));
+    }
 
     public void create(Student student) {
-        //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
+        MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
+        MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
         if  (student!=null) {
 
             Document d = new Document().append("id", student.getId())
@@ -45,24 +45,23 @@ public class StudentFacade {
 
 
     public void delete(Student student) {
-        //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
-        //MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
+        MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
+        MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
         collection.deleteOne(new Document("id", student.getId()));
     }
 
     public List<Student> find(String filter) {
         System.out.println("Studentfacade");
         List<Student> list = new ArrayList<>();
-        //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
-        //MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
+        MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
+        MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
         FindIterable<Document> iter;
         if (filter == null || filter.trim().length() == 0) {
             iter = collection.find();
         } else {
 
-            BsonRegularExpression bsonRegex = new BsonRegularExpression(filter);
+            BsonRegularExpression bsonRegex = new
+                    BsonRegularExpression(filter);
             BsonDocument bsonDoc = new BsonDocument();
             bsonDoc.put("name", bsonRegex);
             iter = collection.find(bsonDoc);

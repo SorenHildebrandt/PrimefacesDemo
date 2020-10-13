@@ -1,3 +1,5 @@
+package entity;
+
 import java.util.Objects;
 
 public class Student {
@@ -49,3 +51,4 @@ public class Student {
         this.name = name;
     }
 }
+

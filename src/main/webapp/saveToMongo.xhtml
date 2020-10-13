@@ -31,7 +31,8 @@
 </ui:define>
     <ui:define name="title">Gem i MongDB</ui:define>
     <ui:define name="content">
-        <h:form>
+        <body>
+        <h:form id="view">
             <h3>Responsive (PrimeFlex, Default alignment)</h3>
             <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
                 <p:outputLabel for="id" value="ID" />
@@ -42,25 +43,14 @@
 
                 <p:outputLabel for="choice" value="Studieretning" />
                 <p:inputText id="choice" value="#{studentController.student.choice}" />
+                <div class="ui-g-12 ui-md-4" style="text-align:left">
 
-                <div class="ui-g-12 ui-md-4" style="text-align:center">
-                    <p:commandButton type="button" value="Gem" actionListener="#{studentController.create}" style="margin-bottom:10px;"/>
+                    <p:splitButton actionListener="#{studentController.create}" value="Save" icon="pi pi-check"></p:splitButton>
                 </div>
-            </p:panelGrid>
-            <h:commandButton value="load mongo" action="#{formLoadMongo.loadMongo}" update="biodata"/>
-            <br/><br/>
-            <p:panelGrid columns="2">
-                <f:facet name="header">Studenter</f:facet>
-                <p:dataTable id="bioData" value="#{formLoadMongo.studentList}" var="student"
-                             reflow="true" rowKey="#{student.choice}" paginator="true" rows="10" >
-                    <p:column headerText="Choice" sortBy="#{student.choice}">
-                        <h:outputText value="#{student.choice}" />
-                    </p:column>
-                    <p:column headerText="Name" sortBy="#{student.name}">
-                        <h:outputText value="#{student.name}" />
-                    </p:column>
-                </p:dataTable>
+
+
             </p:panelGrid>
         </h:form>
+        </body>
     </ui:define>
 </ui:composition>

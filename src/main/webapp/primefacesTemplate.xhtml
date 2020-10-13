@@ -28,27 +28,14 @@
             }
         </style>
     </ui:define>
-
-
-    <ui:define name="title">Test Page</ui:define>
+    <ui:define name="title">Primefaces Template</ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <p:panelGrid columns="2">
-                <f:facet name="header">Studenter</f:facet>
-                <p:dataTable id="bioData" value="#{formLoadMongo.studentList}" var="student"
-                             reflow="true" rowKey="#{student.choice}" paginator="true" rows="10" >
-                    <p:column headerText="Choice" sortBy="#{student.choice}">
-                        <h:outputText value="#{student.choice}" />
-                    </p:column>
-                    <p:column headerText="Name" sortBy="#{student.name}">
-                        <h:outputText value="#{student.name}" />
-                    </p:column>
-                </p:dataTable>
-            </p:panelGrid>
-            <br></br>
-            <h:commandButton value="load mongo" action="#{formLoadMongo.loadMongo}" update="biodata"/>
-            <br/><br/>
-        </h:form>
+
+        <body>
+
+        <h:form></h:form>
+        </body>
     </ui:define>
 </ui:composition>
+

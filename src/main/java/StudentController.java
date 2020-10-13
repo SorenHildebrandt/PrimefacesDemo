@@ -1,9 +1,9 @@
+import entity.Student;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,6 +19,7 @@ public class StudentController implements Serializable {
 
     @Inject
     private transient StudentFacade studentEJB;
+
     private List<Student> list = new ArrayList<>();
 
     public StudentController() {
@@ -26,6 +27,7 @@ public class StudentController implements Serializable {
 
     @PostConstruct
     private void init() {
+        System.out.println("postconstruct");
         find();
     }
 
@@ -36,6 +38,7 @@ public class StudentController implements Serializable {
     }
 
     public void find() {
+        System.out.println("find");
         list = studentEJB.find(filter);
     }
 

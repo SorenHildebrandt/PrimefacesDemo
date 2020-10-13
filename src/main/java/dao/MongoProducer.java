@@ -1,13 +1,10 @@
-
+package dao;
 
 import com.mongodb.MongoClient;
 
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.ApplicationScoped;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import java.rmi.UnknownHostException;
 
 

@@ -7,7 +7,7 @@
 <display-name>Archetype Created Web Application</display-name>
 
   <welcome-file-list>
-    <welcome-file>useTemplate.xhtml</welcome-file>
+    <welcome-file>textEditor.xhtml</welcome-file>
   </welcome-file-list>
   <context-param>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -19,7 +19,7 @@
   </context-param>
   <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>luna-blue</param-value>
+    <param-value>nova-light</param-value>
   </context-param>
   <!--<listener>
     <listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
