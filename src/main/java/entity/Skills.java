@@ -1,7 +1,7 @@
 package entity;
 
 public class Skills {
-    private int id;
+    private String id;
     private String skill;
     private String text1;
     private String text2;
@@ -9,18 +9,18 @@ public class Skills {
     public Skills() {
     }
 
-    public Skills(int id, String skill, String text1, String text2) {
+    public Skills(String id, String skill, String text1, String text2) {
         this.id = id;
         this.skill = skill;
         this.text1 = text1;
         this.text2 = text2;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
