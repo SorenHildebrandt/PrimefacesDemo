@@ -1,17 +1,14 @@
 import com.mongodb.MongoClient;
 import dao.MongoDBPersonDAO;
 import entity.Student;
-
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 
 //@Named("studentController")
 //@SessionScoped
+//@Named("studentController")
+//@ViewScoped
+//@ManagedBean
+//@RequestScoped
 @Named("studentController")
 @ViewScoped
 public class StudentController extends HttpServlet {
@@ -29,6 +30,7 @@ public class StudentController extends HttpServlet {
     private transient StudentFacade studentEJB;
 
     private List<Student> list = new ArrayList<>();
+    private List<Student> students;
 
     public StudentController() {
     }
@@ -39,42 +41,31 @@ public class StudentController extends HttpServlet {
         find();
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("doPost");
-        String choice = request.getParameter("choice");
-        String name = request.getParameter("name");
-        System.out.println("doPost" + "Navn " + name + " choice " + choice);
-        if ((name == null || name.equals(""))
-                || (choice == null || choice.equals(""))) {
-            request.setAttribute("error", "Mandatory Parameters Missing");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/index.xhtml");
-            rd.forward(request, response);
-        } else {
-            Student p = new Student();
-            p.setChoice(choice);
-            p.setName(name);
-            MongoClient mongo = (MongoClient) request.getServletContext()
-                    .getAttribute("MONGO_CLIENT");
-            MongoDBPersonDAO personDAO = new MongoDBPersonDAO(mongo);
-            //personDAO.createPerson(p);
-            System.out.println("Person Added Successfully with id="+p.getId());
-            request.setAttribute("success", "Person Added Successfully");
-            //List<Student> students = personDAO.readAllStudent();
-            //request.setAttribute("persons", persons);
-
-
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/persons.jsp");
-            rd.forward(request, response);
-        }
-    }
-
-
     public void create() {
         System.out.println("StudenController create");
         studentEJB.create(student);
         find();
+    }
+
+private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+
+    public String edit() {
+        System.out.println(sessionMap);
+        System.out.println("StudenController edit");
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map<String,String> params = facesContext.getExternalContext().getRequestParameterMap();
+
+        String id=params.get("action");
+        System.out.println(facesContext);
+        System.out.println(params);
+        System.out.println(id);
+
+        return null;
+    }
+
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) {
+        System.out.println("doPost");
     }
 
     public void find() {

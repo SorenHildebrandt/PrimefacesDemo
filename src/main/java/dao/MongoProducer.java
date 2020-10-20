@@ -19,10 +19,10 @@ public class MongoProducer {
         return mongoClient;
     }
 
-    public void close(@Disposes final MongoClient mongoClient) {
+    /*public void close(@Disposes final MongoClient mongoClient) {
         System.out.println("public MongoClient close");
         mongoClient.close();
-    }
+    }*/
 }
 
 

@@ -35,47 +35,11 @@ public class StudentFacade extends HttpServlet {
     @Inject
     private transient MongoClient mongoClient;
 
-//    public MongoClient mongoClient() {
-//        return new MongoClient(new ServerAddress(HOST, PORT));
-//    }
-
-    /*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("doPost");
-        String choice = request.getParameter("choice");
-        String name = request.getParameter("name");
-        System.out.println("doPost" + "Navn " + name + " choice " + choice);
-        if ((name == null || name.equals(""))
-                || (choice == null || choice.equals(""))) {
-            request.setAttribute("error", "Mandatory Parameters Missing");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/index.xhtml");
-            rd.forward(request, response);
-        } else {
-            Student p = new Student();
-            p.setChoice(choice);
-            p.setName(name);
-            MongoClient mongo = (MongoClient) request.getServletContext()
-                    .getAttribute("MONGO_CLIENT");
-            MongoDBPersonDAO personDAO = new MongoDBPersonDAO(mongo);
-            personDAO.createPerson(p);
-            System.out.println("Person Added Successfully with id="+p.getId());
-            request.setAttribute("success", "Person Added Successfully");
-            List<Student> students = personDAO.readAllStudent();
-            request.setAttribute("persons", persons);
-
-
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(
-                    "/persons.jsp");
-            rd.forward(request, response);
-        }
-    }
-*/
 
     public void create(Student student) {
         //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
         MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
         if  (student!=null) {
-
             Document d = new Document().append("id", student.getId())
                     .append("choice", student.getChoice())
                     .append("name", student.getName());
@@ -96,8 +60,6 @@ public class StudentFacade extends HttpServlet {
         System.out.println("Studentfacade");
         List<Student> list = new ArrayList<>();
         System.out.println("Studentfacade" + list);
-        //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
-        //MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
         MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
         FindIterable<Document> iter;
         if (filter == null || filter.trim().length() == 0) {
@@ -106,7 +68,6 @@ public class StudentFacade extends HttpServlet {
             System.out.println("Studentfacade iter" + iter);
         } else {
             System.out.println("Studentfacade iter else");
-
             BsonRegularExpression bsonRegex = new BsonRegularExpression(filter);
             BsonDocument bsonDoc = new BsonDocument();
             bsonDoc.put("name", bsonRegex);
@@ -120,6 +81,11 @@ public class StudentFacade extends HttpServlet {
                 list.add(new Gson().fromJson(doc.toJson(), Student.class));
             }
         });
+        System.out.println(list);
         return list;
+    }
+
+    public void edit(Student student) {
+        //String id = request.getParameter("id");
     }
 }

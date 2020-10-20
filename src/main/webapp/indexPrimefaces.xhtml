@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-panelgrid.form-elements .ui-grc-2 {
+                padding-left: 60px;
+            }
+
+            @media (max-width:1024px) {
+                .ui-panelgrid.form-elements .ui-grc-2 {
+                    padding-left: 20px;
+                }
+            }
+
+            @media (max-width:640px) {
+                .ui-panelgrid.form-elements .ui-grc-2 {
+                    padding-left: 6px;
+                }
+            }
+            .dialogDemo label {
+
+                line-height: 2.1em;
+            }
+        </style>
+    </ui:define>
+
+
+    <ui:define name="title">Test Page</ui:define>
+
+    <ui:define name="content">
+        <c:url value="/editPerson" var="editURL"></c:url>
+        <h:form id="customers">
+            <p:panelGrid columns="2">
+                <p:growl id="growl" sticky="true" />
+                <f:facet name="header">Studenter</f:facet>
+                <p:dataTable id="bioData" value="#{studentController.list}" var="student" reflow="true" rowKey="#{student.choice}" paginator="true" rows="10" >
+                    <!--<p:column headerText="Id">
+                        <h:outputText value="#{student.id}"/>
+                    </p:column>-->
+                    <p:column headerText="ID">
+                        <p:inputText id="id" value="#{student.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Navn">
+                        <p:inputText id="name" value="#{student.name}"/>
+                    </p:column>
+
+
+                    <p:column headerText="Choice">
+                        <h:inputText id="choice" value="#{student.choice}" />
+                    </p:column>
+
+                </p:dataTable>
+            </p:panelGrid>
+            <br/>
+            <p:commandButton style="float: right" id="save" value="Save" tyleClass="ui-priority-primary"
+                             action="#{studentController.edit}" icon="ui-icon-disk" update="growl">
+                <f:ajax execute="@form" render="@form"/>
+            </p:commandButton>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

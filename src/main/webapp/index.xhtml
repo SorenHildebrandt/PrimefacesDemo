@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Facelet Title</title>
-
     <link href="styles.css" rel="stylesheet" type="text/css"/>
-
 </h:head>
 
 <body>
-<h:form>
-    <h:panelGrid>
+    <h:form>
+
+
+    <p:panelGrid>
         <h:outputLabel>ID</h:outputLabel>
         <h:inputText value="#{studentController.student.id}"/>
 
@@ -23,12 +22,13 @@
 
         <h:outputLabel>choice</h:outputLabel>
         <h:inputText value="#{studentController.student.choice}"/>
-    </h:panelGrid>
+    </p:panelGrid>
 
     <p>
         <h:commandButton actionListener="#{studentController.create}"
                          styleClass="buttons" value="Add New" />
     </p>
+
 </h:form>
 <h:form id="view">
     <h:outputLabel value="Search Skill " style="font-weight:bold"/> &nbsp;&nbsp;
@@ -54,6 +54,17 @@
             <h:column>
                 <h:commandButton actionListener="#{studentController.delete}" styleClass="buttons"
                                  value="Delete [ID: #{student.id}]" />
+            </h:column>
+            <h:column>
+                    <h:commandButton actionListener="#{studentController.edit}"
+                                     styleClass="buttons" value="Edit" />
+
+            </h:column>
+            <h:column>
+                <f:facet name="header">Edit</f:facet>
+                <h:commandButton value="Edit">
+                    <f:param name="action" value="#{student.id}"></f:param>
+                </h:commandButton>
             </h:column>
         </h:dataTable>
     </h:panelGrid>
