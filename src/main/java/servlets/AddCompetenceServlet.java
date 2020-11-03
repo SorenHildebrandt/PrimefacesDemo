@@ -1,7 +1,7 @@
 package servlets;
 
 import com.mongodb.MongoClient;
-import dao.MongoDBPersonDAO;
+import dao.srtMongoDBPersonDAO;
 import entity.Skills;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.List;
 
 @WebServlet("/addCompetence")
 public class AddCompetenceServlet extends HttpServlet {
@@ -35,11 +33,11 @@ public class AddCompetenceServlet extends HttpServlet {
             p.setText1(text1);
             MongoClient mongo = (MongoClient) request.getServletContext()
                     .getAttribute("MONGO_CLIENT");
-            MongoDBPersonDAO personDAO = new MongoDBPersonDAO(mongo);
+            srtMongoDBPersonDAO personDAO = new srtMongoDBPersonDAO(mongo);
            // personDAO.createPerson(p);
             System.out.println("Person Added Successfully with id="+p.getId());
             request.setAttribute("success", "Person Added Successfully");
-            List<Skills> skills = personDAO.readAllPerson();
+            //List<Skills> skills = personDAO.readAllPerson();
             request.setAttribute("skill", skill);
 
             RequestDispatcher rd = getServletContext().getRequestDispatcher(

@@ -1,28 +1,190 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- File: result.xhtml -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-<h:head></h:head>
-<h:body>
-    <h:link outcome="book" value="Create Book"/>
-    <p:dataList value="#{bookList.booksAvailable}" var="book" type="ordered">
-        <f:facet name="header">
-            srtBook List
-        </f:facet>
-        #{book.bookTitle}
-        <h:outputText value=" ("/>
-        <p:link value="Edit" outcome="edit">
-            <f:param name="bookId" value="#{book.id}"/>
-        </p:link>
-        <h:outputText value=" | "/>
-        <p:link value="Delete" outcome="delete">
-            <f:param name="bookId" value="#{book.id}"/>
-        </p:link>
-        <h:outputText value=")"/>
-    </p:dataList>
-</h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+        color:#757575;
+    }
+
+    .cars-datalist .car-item {
+        padding: 8px 14px;
+    }
+
+    .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 14px;
+    }
+
+    .cars-datalist .car-item button {
+        float: right;
+    }
+
+    .cars-datalist .ui-datalist-item:not(:last-child) {
+        border-bottom: 1px solid #dee4e9;
+    }
+
+    .cars-datalist ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .ui-car-display td:last-child {
+        font-weight: 700;
+    }
+
+    @media (max-width:640px) {
+        .cars-datalist .text-column {
+            text-align: center;
+        }
+
+        .ui-tree {
+            width: 100%;
+        }
+    }
+</style>
+</ui:define>
+<ui:define name="title">Data</ui:define>
+<ui:define name="viewname">
+<li>Components</li>
+<li>/</li>
+<li><p:link outcome="/data">Data</p:link></li>
+</ui:define>
+<ui:define name="content">
+<h:form id="form">
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+            <div class="card card-w-title">
+
+                <p:dataTable var="e" value="#{bookBean.booksAvailable}">
+                    <p:column>
+                        <f:facet name="header">Book ID</f:facet>
+                        <h:outputText value="#{e.bookId}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Book title</f:facet>
+                        <h:outputText value="#{e.bookTitle}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Action</f:facet>
+                        <h:commandButton value="select" action="#{bookBean.select(e)}"/>
+                    </p:column>
+
+                    <!--<p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":form:bookDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
+                            <f:setPropertyActionListener value="#{book}" target="#{bookList.selectedBook}" />
+                        </p:commandButton>
+                    </p:column>-->
+                </p:dataTable>
+
+                <hr/>
+
+                <table>
+                    <tr>
+                        <td>BookID:</td>
+                        <td><h:inputText value="#{bookBean.selectedBook.bookId}"></h:inputText></td>
+                    </tr>
+                    <tr>
+                        <td>Book Title</td>
+                        <td><h:inputText value="#{bookBean.selectedBook.bookTitle}"></h:inputText></td>
+                    </tr>
+
+                </table>
+                <hr/>
+                <p:commandButton value="Update" action="#{bookBean.update(bookId)}" ajax="false"/>
+
+                <h1>DataTable</h1>
+                <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+                <!--selectionMode=""  selection="#{bookList.selectedBook}"  update=":form:msgs"-->
+                <p:dataTable  id="eventsDT" var="book" value="#{bookBean.booksAvailable}" selectionMode="single"
+                             reflow="true" rowKey="#{book.bookId}" paginator="true" rows="10"  >
+                    <f:facet name="header">
+                        Select Events
+                    </f:facet>
+                    <p:ajax event="rowSelect" listener="#{bookBean.onRowSelect}" update=":form:msgs" />
+                    <p:ajax event="rowUnselect" listener="#{bookBean.onRowUnselect}"  />
+                    <p:column headerText="Id" sortBy="#{book.bookId}">
+                        <h:outputText value="#{book.bookId}" />
+                    </p:column>
+
+                    <p:column headerText="Title" sortBy="#{book.bookTitle}">
+                        <h:outputText value="#{book.bookTitle}" />
+                    </p:column>
+                </p:dataTable>
+
+                <p:dataTable id="basicDT" var="book" value="#{bookBean.booksAvailable}">
+                    <f:facet name="header">
+                        Basic
+                    </f:facet>
+                    <p:column headerText="Id" sortBy="#{book.bookId}">
+                        <h:outputText value="#{book.bookId}" />
+                    </p:column>
+
+                    <p:column headerText="Title" sortBy="#{book.bookTitle}">
+                        <h:outputText value="#{book.bookTitle}" />
+                    </p:column>
+
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":form:bookDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
+                            <f:setPropertyActionListener value="#{book}" target="#{bookBean.selectedBook}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="Book Info" widgetVar="bookDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="bookDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty bookBean.selectedBook}" columnClasses="label,value">
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value='#{bookBean.selectedBook.bookId}'/>
+
+                            <h:outputText value="BookTitle" />
+                            <h:outputText value='#{bookBean.selectedBook.bookTitle}'/>
+
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+                <h:link outcome="book" value="Create Book"/>
+                <p:dataList value="#{bookBean.booksAvailable}" var="book" type="ordered">
+                    <f:facet name="header">
+                        Book List
+                    </f:facet>
+                    #{book.id}
+                    #{book.bookTitle}
+                    <h:outputText value=" ("/>
+                    <p:link value="Edit" outcome="edit">
+                        <f:param name="bookId" value="#{book.bookId}"/>
+                    </p:link>
+                    <h:outputText value=" | "/>
+                    <p:link value="Delete" outcome="delete">
+                        <f:param name="bookId" value="#{book.bookId}"/>
+                    </p:link>
+                    <h:outputText value=")"/>
+                </p:dataList>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</h:form>
+</ui:define>
+</ui:composition>
+
+
+
+
+

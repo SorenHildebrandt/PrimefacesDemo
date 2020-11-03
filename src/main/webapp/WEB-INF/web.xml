@@ -7,7 +7,7 @@
 <display-name>Archetype Created Web Application</display-name>
 
   <welcome-file-list>
-    <welcome-file>book.xhtml</welcome-file>
+    <welcome-file>result.xhtml</welcome-file>
   </welcome-file-list>
   <session-config>
     <session-timeout>45</session-timeout>

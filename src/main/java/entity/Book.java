@@ -1,33 +1,42 @@
 package entity;
 
-public class Book {
-    private int id;
+import java.io.Serializable;
+
+public class Book implements Serializable {
+    private String id;
+    private String bookId;
     private String bookTitle;
 
     public Book() {
     }
 
     public Book(String bookTitle) {
-        this.id = id;
+        this.bookId = bookId;
         this.bookTitle = bookTitle;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
-        System.out.println("setId " + id);
+    public void setId(String id) {
         this.id = id;
     }
 
+    public String getbookId() {
+        return bookId;
+    }
+
+    public void setbookId(String bookId) {
+        this.bookId = bookId;
+    }
+
     public String getBookTitle() {
-        System.out.println("getBookTitle " + bookTitle);
+        System.out.println("Book getBookTitle");
         return bookTitle;
     }
 
     public void setBookTitle(String bookTitle) {
-        System.out.println("setBookTitle " + bookTitle);
         this.bookTitle = bookTitle;
     }
 }

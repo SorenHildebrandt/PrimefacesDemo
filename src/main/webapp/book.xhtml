@@ -10,8 +10,8 @@
     <h:form>
         <p:panel header="Create Book">
             <p:panelGrid columns="1" layout="grid">
-                <p:outputLabel value="ID"/>
-                <p:inputText value='#{bookBean.book.id}'/>
+                <p:outputLabel value="Book ID"/>
+                <p:inputText value='#{bookBean.book.bookId}'/>
                  <p:outputLabel value="Enter book title"/>
                <p:inputText value='#{bookBean.book.bookTitle}'/>
                 <p:commandButton value="Create" action="#{bookBean.add}" ajax="false"/>

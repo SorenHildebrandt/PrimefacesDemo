@@ -1,23 +1,16 @@
 import com.google.gson.Gson;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import dao.MongoDBPersonDAO;
 import entity.Student;
 import org.bson.BsonDocument;
 import org.bson.BsonRegularExpression;
 import org.bson.Document;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
