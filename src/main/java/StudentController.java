@@ -1,4 +1,6 @@
 import entity.Student;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,18 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-//@Named("studentController")
-//@SessionScoped
-//@Named("studentController")
-//@ViewScoped
-//@ManagedBean
-//@RequestScoped
 @Named("studentController")
 @ViewScoped
-public class StudentController extends HttpServlet {
+public class StudentController implements Serializable {
+    private int id;
+    private String name;
+    private String choice;
     private Student student = new Student();
+    //private Student student;
+    private List<Student> booksAvailable;
     private String filter = "";
+    private Student selectedStudent=null;
+    //private List<Student> students=null;
 
     @Inject
     private transient StudentFacade studentEJB;
@@ -36,6 +38,8 @@ public class StudentController extends HttpServlet {
     @PostConstruct
     public void init() {
         System.out.println("postconstruct");
+        selectedStudent=new Student();
+        booksAvailable = studentEJB.getAllBooks(filter);
         find();
     }
 
@@ -76,6 +80,11 @@ private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExt
         find();
     }
 
+    public void select(Student e){
+        System.out.println("select e.toString " + e.toString());
+        student=e;
+    }
+
     public Student getStudent() {
         return student;
     }
@@ -108,5 +117,53 @@ private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExt
     public StudentController setList(List<Student> list) {
         this.list = list;
         return this;
+    }
+
+    public List<Student> getBooksAvailable() {
+        return booksAvailable;
+    }
+
+    public void setBooksAvailable(List<Student> booksAvailable) {
+        this.booksAvailable = booksAvailable;
+    }
+
+    public Student getSelectedStudent() {
+        return selectedStudent;
+    }
+
+    public void setSelectedStudent(Student selectedStudent) {
+        this.selectedStudent = selectedStudent;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public String getChoice() {
+        return choice;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
     }
 }

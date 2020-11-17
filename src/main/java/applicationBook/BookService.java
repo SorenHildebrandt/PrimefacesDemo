@@ -27,6 +27,7 @@ import org.bson.json.JsonWriterSettings;
 public class BookService extends HttpServlet{
     //List<Book> booktList = new ArrayList(h);
     private DBCollection col;
+    private String bookTitle;
 
     @Inject
     private transient MongoClient mongoClient;
@@ -46,15 +47,15 @@ public class BookService extends HttpServlet{
     public List<Book> getAllBooks(String filter){
         System.out.println("Get all books in a list");
         List<Book> list = new ArrayList<>();
-        //System.out.println("BookService" + list);
+        //System.out.println("BookService " + bookTitle);
         MongoCollection<Document> collection = mongoClient.getDatabase("bookstore").getCollection("books");
         FindIterable<Document> iter;
         if (filter == null || filter.trim().length() == 0) {
-            //System.out.println("BookService filter" + list);
+            System.out.println("BookService filter" + list);
             iter = collection.find();
-            //System.out.println("BookService iter" + iter);
+            System.out.println("BookService iter" + iter);
         } else {
-            //System.out.println("BookService iter else");
+            System.out.println("BookService iter else");
             BsonRegularExpression bsonRegex = new BsonRegularExpression(filter);
             BsonDocument bsonDoc = new BsonDocument();
             bsonDoc.put("name", bsonRegex);
@@ -64,11 +65,11 @@ public class BookService extends HttpServlet{
         iter.forEach(new Block<Document>() {
             @Override
             public void apply(Document doc) {
-                //System.out.println("Studentfacade from json");
+                System.out.println("BookService from json");
                 list.add(new Gson().fromJson(doc.toJson(), Book.class));
             }
         });
-        System.out.println(list);
+        System.out.println("liste" + list);
         return list;
     }
 
@@ -81,9 +82,6 @@ public class BookService extends HttpServlet{
         Bson filter = eq("bookId", value);
 
         Bson updateOperation = set("bookTitle", book.getBookTitle());
-
-        /*Document d = new Document().append("bookId", book.getbookId())
-                .append("bookTitle",book.getBookTitle());*/
 
         UpdateResult updateResult = collection.updateOne(filter, updateOperation);
         System.out.println("=> Updating the doc with {\"BookId\":value}. Adding comment.");

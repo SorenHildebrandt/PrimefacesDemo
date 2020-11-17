@@ -14,13 +14,12 @@ import entity.Book;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
-//@Named("bookBean")
-//@ViewScoped
 @Named("bookBean")
 @ViewScoped
 public class BookBean implements Serializable {
     private String bookTitle;
     private String bookId;
+    //private Book book = new Book();
     private Book book;
     private List<Book> booksAvailable;
     //private List<Book> selectedBooks;
@@ -44,6 +43,8 @@ public class BookBean implements Serializable {
         book = new Book();
         selectedBook=new Book();
         booksAvailable = bookService.getAllBooks(filter);
+        //bookTitle = book.getBookTitle();
+        //System.out.println("bookTitle" + bookTitle);
 
         //String bookIdParam = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("bookId");
         //System.out.println(bookIdParam);
@@ -51,20 +52,30 @@ public class BookBean implements Serializable {
 
     public void select(Book e){
         System.out.println("select e.toString " + e.toString());
-        selectedBook=e;
+        book=e;
     }
 
-
-
-    public String add() {
-        System.out.println("BookBean add");
+    public void add() {
+        //System.out.println("BookBean add");
         bookService.addBook(book);
-        return "success";
+        //return "success";
     }
 
     public String update(String value) {
         System.out.println("BookBean update book " + value);
         bookService.updateBook(value,book);
+        return "success";
+    }
+
+    public String update2(String value) {
+        System.out.println("BookBean update book " + value);
+        bookService.updateBook(value, book);
+        return "success";
+    }
+
+    public String update3(String value) {
+        System.out.println("BookBean update book " + value);
+        bookService.updateBook(value, book);
         return "success";
     }
 
@@ -74,7 +85,7 @@ public class BookBean implements Serializable {
         return "success";
     }
 
-    public void onRowSelect(SelectEvent<Book> event) {
+    /*public void onRowSelect(SelectEvent<Book> event) {
         FacesMessage msg = new FacesMessage("Book Selected", event.getObject().getbookId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -82,25 +93,26 @@ public class BookBean implements Serializable {
     public void onRowUnselect(UnselectEvent<Book> event) {
         FacesMessage msg = new FacesMessage("Book Unselected", event.getObject().getbookId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+    }*/
 
     //1
     public Book getBook() {
-        System.out.println("presentationBook.BookBean getBook" + book);
+        //System.out.println("presentationBook BookBean getBook" + book);
         return book;
     }
     //2
     public void setBook(Book book) {
-        System.out.println("presentationBook BookBean setBook" + book);
+        //System.out.println("presentationBook BookBean setBook" + book);
         this.book = book;
     }
 
     public String getBookTitle() {
-        System.out.println("return BookTitle" + bookTitle);
+        //System.out.println("return BookTitle" + bookTitle);
         return bookTitle;
     }
 
     public String getBookId() {
+        //System.out.println("getBookId Bean" + bookId);
         return bookId;
     }
 
@@ -109,13 +121,48 @@ public class BookBean implements Serializable {
     }
 
     public Book getSelectedBook() {
+        System.out.println("getSelected Book " + selectedBook);
         return selectedBook;
     }
+
 
     public void setSelectedBook(Book selectedBook) {
         this.selectedBook = selectedBook;
     }
+
     public List<Book> getBooksAvailable() {
         return booksAvailable;
+    }
+
+    public void setBooksAvailable(List<Book> booksAvailable) {
+        this.booksAvailable = booksAvailable;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    /*public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }*/
+
+    public BookService getBookService() {
+        return bookService;
+    }
+
+    public void setBookService(BookService bookService) {
+        this.bookService = bookService;
     }
 }

@@ -1,6 +1,8 @@
 package entity;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private int id;
     private String choice;
     private String name;
@@ -8,11 +10,17 @@ public class Student {
     public Student() {
     }
 
-    public Student(String name, String choice) {
+    public Student(int id, String choice, String name) {
         this.id = id;
         this.choice = choice;
         this.name = name;
     }
+
+    /*public Student(String name, String choice) {
+        this.id = id;
+        this.choice = choice;
+        this.name = name;
+    }*/
 
     public int getId() {
         return id;

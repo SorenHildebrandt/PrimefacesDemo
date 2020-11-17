@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+
+                        <h1>Liste over teknologier</h1>
+                        <p:dataTable id="bioData" value="#{studentController.list}" var="student" reflow="true" rowKey="#{student.choice}" paginator="true" rows="10" >
+                            <p:column headerText="ID">
+                                <f:facet name="header">ID</f:facet>
+                                <h:outputText value="#{student.id}"/>
+                            </p:column>
+
+                            <p:column headerText="Navn">
+                                <f:facet name="header">Navn</f:facet>
+                                <h:outputText value="#{student.name}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Choice">
+                                <f:facet name="header">Valg</f:facet>
+                                <h:outputText value="#{student.choice}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">Rediger</f:facet>
+                                <h:commandButton value="Rediger" action="#{studentController.select(student)}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <hr/>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Right Side -->
+                    <div class="card card-w-title">
+                        <f:metadata>
+                            <f:viewParam name="bookId" />
+                        </f:metadata>
+                        <h1>Felter</h1>
+
+                        <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
+                            <p:outputLabel value="ID" />
+                            <p:inputText disabled="True" value="#{studentController.student.id}" />
+
+                            <p:outputLabel value="Teknologi" />
+                            <p:inputText value="#{studentController.student.name}" />
+
+                            <p:outputLabel value="Beskrivelse" />
+                            <p:inputText value="#{studentController.student.choice}" />
+                            <div class="ui-g-12 ui-md-4" style="text-align:left">
+                                <p:splitButton actionListener="#{studentController.create}" value="Save" icon="pi pi-check"></p:splitButton>
+                            </div>
+                        </p:panelGrid>
+                            <hr/>
+                        <p:commandButton value="Update" action="#{bookBean.update2(bookId)}" ajax="false"/>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

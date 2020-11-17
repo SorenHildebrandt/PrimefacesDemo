@@ -33,8 +33,25 @@
     <ui:define name="title">Test Page</ui:define>
 
     <ui:define name="content">
-        <c:url value="/editPerson" var="editURL"></c:url>
+
         <h:form id="customers">
+            <h3>Responsive (PrimeFlex, Default alignment)</h3>
+            <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
+                <p:outputLabel for="id" value="ID" />
+                <p:inputText id="id" value="#{studentController.student.id}" />
+
+                <p:outputLabel for="name" value="Navn" />
+                <p:inputText id="name" value="#{studentController.student.name}" />
+
+                <p:outputLabel for="choice" value="Studieretning" />
+                <p:inputText id="choice" value="#{studentController.student.choice}" />
+                <div class="ui-g-12 ui-md-4" style="text-align:left">
+
+                    <p:splitButton actionListener="#{studentController.create}" value="Save" icon="pi pi-check"></p:splitButton>
+                </div>
+
+
+            </p:panelGrid>
             <p:panelGrid columns="2">
                 <p:growl id="growl" sticky="true" />
                 <f:facet name="header">Studenter</f:facet>

@@ -24,6 +24,7 @@ public class Book implements Serializable {
     }
 
     public String getbookId() {
+        //System.out.println("Book getBookId " + bookId);
         return bookId;
     }
 
@@ -32,7 +33,7 @@ public class Book implements Serializable {
     }
 
     public String getBookTitle() {
-        System.out.println("Book getBookTitle");
+        System.out.println("Book getBookTitle " + bookTitle);
         return bookTitle;
     }
 

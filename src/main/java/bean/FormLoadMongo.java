@@ -41,7 +41,7 @@ public class FormLoadMongo implements Serializable {
 
         DBCursor cursor = table.find();
 
-        while (cursor.hasNext()) {
+       /* while (cursor.hasNext()) {
             BasicDBObject document = (BasicDBObject) cursor.next();
             Student student = new Student((String) document.get("choice"),
                     (String) document.get("name"));
@@ -50,7 +50,7 @@ public class FormLoadMongo implements Serializable {
 
             studentList.add(student);
 
-        }
+        }*/
     }
 
     public List getStudentList() {

@@ -5,6 +5,14 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
     <navigation-rule>
+        <from-view-id>/technologyAdmin.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/technologyAdmin.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
         <from-view-id>/book.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
