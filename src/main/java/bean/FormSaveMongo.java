@@ -4,7 +4,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import entity.Student;
+import entity.Technology;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -33,7 +33,7 @@ public class FormSaveMongo implements Serializable {
     public final static String DATABASE = "cvbank";
     public final static String COLLECTION = "biodata";
 
-    List<Student> studentList = new ArrayList();
+    List<Technology> technologyList = new ArrayList();
 
     //List<CvBank> CvBankList = new ArrayList();
 
@@ -44,7 +44,7 @@ public class FormSaveMongo implements Serializable {
     @PostConstruct
     private void init(){
         System.out.println("formSaveMongo Init");
-        List<Student> studentList = new ArrayList();
+        List<Technology> technologyList = new ArrayList();
     }
 
     /*@PreDestroy
@@ -114,12 +114,16 @@ public class FormSaveMongo implements Serializable {
                 .append("name", name);
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public List<Technology> getStudentList() {
+        return technologyList;
     }
 
-    public void setStudentList(List studentList) {
-        this.studentList = studentList;
+    public List<Technology> getTechnologyList() {
+        return technologyList;
+    }
+
+    public void setTechnologyList(List<Technology> technologyList) {
+        this.technologyList = technologyList;
     }
 
     public String getName() {

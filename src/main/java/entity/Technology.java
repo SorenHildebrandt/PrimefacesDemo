@@ -2,17 +2,18 @@ package entity;
 
 import java.io.Serializable;
 
-public class Student implements Serializable {
+public class Technology implements Serializable {
     private int id;
-    private String choice;
+    //private String choice;
+    private String technologyChoice;
     private String name;
 
-    public Student() {
+    public Technology() {
     }
 
-    public Student(int id, String choice, String name) {
+    public Technology(int id, String technologyChoice, String name) {
         this.id = id;
-        this.choice = choice;
+        this.technologyChoice = technologyChoice;
         this.name = name;
     }
 
@@ -31,13 +32,13 @@ public class Student implements Serializable {
         this.id = id;
     }
 
-    public String getChoice() {
-        return choice;
+    public String getTechnologyChoice() {
+        return technologyChoice;
     }
 
-    public void setChoice(String choice) {
-        System.out.println("setChoice " + choice);
-        this.choice = choice;
+    public void setTechnologyChoice(String technologyChoice) {
+        System.out.println("settechnologyChoice " + technologyChoice);
+        this.technologyChoice = technologyChoice;
     }
 
     public String getName() {

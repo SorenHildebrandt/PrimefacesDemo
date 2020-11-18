@@ -1,7 +1,8 @@
 package bean;
 
 import com.mongodb.*;
-import entity.Student;
+import entity.Technology;
+
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,7 +20,7 @@ public class FormLoadMongo implements Serializable {
     public final static String DATABASE = "cvbank";
     public final static String COLLECTION = "biodata";
 
-    List<Student> studentList = new ArrayList();
+    List<Technology> studentList = new ArrayList();
 
     @Inject
     private transient MongoClient mongoClient;

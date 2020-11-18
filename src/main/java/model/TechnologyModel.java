@@ -1,3 +1,5 @@
+package model;
+
 import com.google.gson.Gson;
 import com.mongodb.Block;
 import com.mongodb.DBCollection;
@@ -5,14 +7,13 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
-import entity.Student;
+import entity.Technology;
 import org.bson.BsonDocument;
 import org.bson.BsonRegularExpression;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import javax.inject.Inject;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +26,17 @@ import org.bson.json.JsonWriterSettings;
 
 //@Stateless
 //@WebServlet("/addPerson")
-public class StudentFacade extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(StudentFacade.class.getName());
+public class TechnologyModel extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(TechnologyModel.class.getName());
     private final static String HOST = "localhost";
     private final static int PORT = 27017;
 
-    public final static String DATABASE = "cvbank";
-    public final static String COLLECTION = "biodata";
+    public final static String DATABASE = "hildebrandt-udvikling";
+    public final static String COLLECTION = "technology";
     private DBCollection col;
     private String name;
-    private String choice;
+    //private String choice;
+    private String technologyChoice;
     private Integer id;
     //private String id_string;
 
@@ -42,12 +44,12 @@ public class StudentFacade extends HttpServlet {
     private transient MongoClient mongoClient;
 
 
-    public void create(Student student) {
+    public void create(Technology technology) {
         //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
-        name = student.getName();
-        id = student.getId();
-        choice = student.getChoice();
+        MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
+        name = technology.getName();
+        id = technology.getId();
+        technologyChoice = technology.getTechnologyChoice();
         //id_string = String.valueOf(id);
 
 
@@ -62,7 +64,7 @@ public class StudentFacade extends HttpServlet {
             //Bson filter = eq("name", name);
             System.out.println("Filter " + filter);
             //Bson updateOperation = set("choice", student.getChoice());
-            Bson updateOperation = combine(set("name", name), set("choice", choice));
+            Bson updateOperation = combine(set("id", id), set("name", name), set("technologyChoice", technologyChoice));
             System.out.println("updateOperation " + updateOperation);
 
             UpdateResult updateResult = collection.updateOne(filter, updateOperation);
@@ -70,26 +72,26 @@ public class StudentFacade extends HttpServlet {
             System.out.println(updateResult);
         } else {
             System.out.println("id er 0 vi gemmer et nyt dokument");
-            Document d = new Document().append("id", student.getId())
-                    .append("choice", student.getChoice())
-                    .append("name", student.getName());
+            Document d = new Document().append("id", technology.getId())
+                    .append("technologyChoice", technology.getTechnologyChoice())
+                    .append("name", technology.getName());
             collection.insertOne(d);
         }
 
     }
 
-    public void delete(Student student) {
+    public void delete(Technology technology) {
         //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
         //MongoCollection<Document> collection = mongoClient.getDatabase(DATABASE).getCollection(COLLECTION);
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
-        collection.deleteOne(new Document("id", student.getId()));
+        MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
+        collection.deleteOne(new Document("id", technology.getId()));
     }
 
-    public List<Student> find(String filter) {
+    public List<Technology> find(String filter) {
         System.out.println("Studentfacade");
-        List<Student> list = new ArrayList<>();
+        List<Technology> list = new ArrayList<>();
         System.out.println("Studentfacade" + list);
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
+        MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
         FindIterable<Document> iter;
         if (filter == null || filter.trim().length() == 0) {
             System.out.println("Studentfacade filter" + list);
@@ -107,22 +109,22 @@ public class StudentFacade extends HttpServlet {
             @Override
             public void apply(Document doc) {
                 System.out.println("Studentfacade from json");
-                list.add(new Gson().fromJson(doc.toJson(), Student.class));
+                list.add(new Gson().fromJson(doc.toJson(), Technology.class));
             }
         });
         System.out.println(list);
         return list;
     }
 
-    public void edit(Student student) {
+    public void edit(Technology technology) {
         //String id = request.getParameter("id");
     }
 
-    public List<Student> getAllBooks(String filter) {
+    public List<Technology> getAllTechnologies(String filter) {
         System.out.println("Get all books in a list");
-        List<Student> list = new ArrayList<>();
+        List<Technology> list = new ArrayList<>();
         //System.out.println("BookService " + bookTitle);
-        MongoCollection<Document> collection = mongoClient.getDatabase("cvbank").getCollection("biodata");
+        MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
         FindIterable<Document> iter;
         if (filter == null || filter.trim().length() == 0) {
             System.out.println("BookService filter" + list);
@@ -134,13 +136,12 @@ public class StudentFacade extends HttpServlet {
             BsonDocument bsonDoc = new BsonDocument();
             bsonDoc.put("name", bsonRegex);
             iter = collection.find(bsonDoc);
-
         }
         iter.forEach(new Block<Document>() {
             @Override
             public void apply(Document doc) {
                 System.out.println("BookService from json");
-                list.add(new Gson().fromJson(doc.toJson(), Student.class));
+                list.add(new Gson().fromJson(doc.toJson(), Technology.class));
             }
         });
         System.out.println("liste  " + list);

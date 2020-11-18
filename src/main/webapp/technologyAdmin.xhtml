@@ -13,26 +13,26 @@
                     <div class="card card-w-title">
 
                         <h1>Liste over teknologier</h1>
-                        <p:dataTable id="bioData" value="#{studentController.list}" var="student" reflow="true" rowKey="#{student.choice}" paginator="true" rows="10" >
+                        <p:dataTable id="bioData" value="#{technologyBean.list}" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
                             <p:column headerText="ID">
                                 <f:facet name="header">ID</f:facet>
-                                <h:outputText value="#{student.id}"/>
+                                <h:outputText value="#{technology.id}"/>
                             </p:column>
 
                             <p:column headerText="Navn">
                                 <f:facet name="header">Navn</f:facet>
-                                <h:outputText value="#{student.name}"/>
+                                <h:outputText value="#{technology.name}"/>
                             </p:column>
 
 
-                            <p:column headerText="Choice">
+                            <p:column headerText="Tec">
                                 <f:facet name="header">Valg</f:facet>
-                                <h:outputText value="#{student.choice}" />
+                                <h:outputText value="#{technology.technologyChoice}" />
                             </p:column>
 
                             <p:column>
                                 <f:facet name="header">Rediger</f:facet>
-                                <h:commandButton value="Rediger" action="#{studentController.select(student)}"/>
+                                <h:commandButton value="Rediger" action="#{technologyBean.select(technology)}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -49,19 +49,17 @@
 
                         <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
                             <p:outputLabel value="ID" />
-                            <p:inputText disabled="True" value="#{studentController.student.id}" />
+                            <p:inputText disabled="false" value="#{technologyBean.technology.id}" />
 
                             <p:outputLabel value="Teknologi" />
-                            <p:inputText value="#{studentController.student.name}" />
+                            <p:inputText value="#{technologyBean.technology.name}" />
 
                             <p:outputLabel value="Beskrivelse" />
-                            <p:inputText value="#{studentController.student.choice}" />
+                            <p:inputText value="#{technologyBean.technology.technologyChoice}" />
                             <div class="ui-g-12 ui-md-4" style="text-align:left">
-                                <p:splitButton actionListener="#{studentController.create}" value="Save" icon="pi pi-check"></p:splitButton>
+                                <p:splitButton actionListener="#{technologyBean.create}" value="Save" icon="pi pi-check"></p:splitButton>
                             </div>
                         </p:panelGrid>
-                            <hr/>
-                        <p:commandButton value="Update" action="#{bookBean.update2(bookId)}" ajax="false"/>
                     </div>
                 </div>
             </div>
