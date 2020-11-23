@@ -34,7 +34,7 @@ public class TechnologyModel extends HttpServlet {
     public final static String DATABASE = "hildebrandt-udvikling";
     public final static String COLLECTION = "technology";
     private DBCollection col;
-    private String name;
+    private String richText1;
     //private String choice;
     private String technologyChoice;
     private Integer id;
@@ -47,13 +47,13 @@ public class TechnologyModel extends HttpServlet {
     public void create(Technology technology) {
         //MongoClient mongoClient = new MongoClient(new ServerAddress(HOST, PORT));
         MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
-        name = technology.getName();
+        richText1 = technology.getRichText1();
         id = technology.getId();
         technologyChoice = technology.getTechnologyChoice();
         //id_string = String.valueOf(id);
 
 
-        System.out.println("id " + id + " " + "name " + name  );
+        System.out.println("id " + id + " " + "richText " + richText1  );
 
         if  (id != 0) {
             System.out.println("id er forskellig fra nul og eks. dokument skal opdaterets");
@@ -61,10 +61,9 @@ public class TechnologyModel extends HttpServlet {
 
             // update one document
             Bson filter = eq("id", id);
-            //Bson filter = eq("name", name);
             System.out.println("Filter " + filter);
             //Bson updateOperation = set("choice", student.getChoice());
-            Bson updateOperation = combine(set("id", id), set("name", name), set("technologyChoice", technologyChoice));
+            Bson updateOperation = combine(set("id", id), set("richText1", richText1), set("technologyChoice", technologyChoice));
             System.out.println("updateOperation " + updateOperation);
 
             UpdateResult updateResult = collection.updateOne(filter, updateOperation);
@@ -74,7 +73,7 @@ public class TechnologyModel extends HttpServlet {
             System.out.println("id er 0 vi gemmer et nyt dokument");
             Document d = new Document().append("id", technology.getId())
                     .append("technologyChoice", technology.getTechnologyChoice())
-                    .append("name", technology.getName());
+                    .append("richText1;", technology.getRichText1());
             collection.insertOne(d);
         }
 
@@ -101,7 +100,7 @@ public class TechnologyModel extends HttpServlet {
             System.out.println("Studentfacade iter else");
             BsonRegularExpression bsonRegex = new BsonRegularExpression(filter);
             BsonDocument bsonDoc = new BsonDocument();
-            bsonDoc.put("name", bsonRegex);
+            bsonDoc.put("richText1", bsonRegex);
             iter = collection.find(bsonDoc);
 
         }
@@ -134,7 +133,7 @@ public class TechnologyModel extends HttpServlet {
             System.out.println("BookService iter else");
             BsonRegularExpression bsonRegex = new BsonRegularExpression(filter);
             BsonDocument bsonDoc = new BsonDocument();
-            bsonDoc.put("name", bsonRegex);
+            bsonDoc.put("richText1", bsonRegex);
             iter = collection.find(bsonDoc);
         }
         iter.forEach(new Block<Document>() {

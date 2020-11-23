@@ -7,6 +7,9 @@
 
     <ui:define name="content">
         <h:form id="form">
+            <p:growl>
+                <p:autoUpdate />
+            </p:growl>
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-lg-6">
                     <!-- Left Side -->
@@ -14,24 +17,18 @@
 
                         <h1>Liste over teknologier</h1>
                         <p:dataTable id="bioData" value="#{technologyBean.list}" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
-                            <p:column headerText="ID">
+                            <p:column headerText="id">
                                 <f:facet name="header">ID</f:facet>
                                 <h:outputText value="#{technology.id}"/>
                             </p:column>
 
-                            <p:column headerText="Navn">
-                                <f:facet name="header">Navn</f:facet>
-                                <h:outputText value="#{technology.name}"/>
-                            </p:column>
-
-
-                            <p:column headerText="Tec">
-                                <f:facet name="header">Valg</f:facet>
+                            <p:column headerText="tecnology">
+                                <f:facet name="header">Teknologi</f:facet>
                                 <h:outputText value="#{technology.technologyChoice}" />
                             </p:column>
 
                             <p:column>
-                                <f:facet name="header">Rediger</f:facet>
+                                <f:facet name="header"></f:facet>
                                 <h:commandButton value="Rediger" action="#{technologyBean.select(technology)}"/>
                             </p:column>
                         </p:dataTable>
@@ -52,14 +49,37 @@
                             <p:inputText disabled="false" value="#{technologyBean.technology.id}" />
 
                             <p:outputLabel value="Teknologi" />
-                            <p:inputText value="#{technologyBean.technology.name}" />
+                            <p:inputText value="#{technologyBean.technology.technologyChoice}" />
+
+
 
                             <p:outputLabel value="Beskrivelse" />
-                            <p:inputText value="#{technologyBean.technology.technologyChoice}" />
+                            <p:textEditor value="#{technologyBean.technology.richText1}"/>
+
+                            <h:outputLabel for="menu" value="Basic:" />
+                            <p:selectCheckboxMenu id="menu" value="#{technologyBean.selectedCities}" label="Cities"
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                <f:selectItems value="#{technologyBean.cities}" />
+                            </p:selectCheckboxMenu>
+
                             <div class="ui-g-12 ui-md-4" style="text-align:left">
-                                <p:splitButton actionListener="#{technologyBean.create}" value="Save" icon="pi pi-check"></p:splitButton>
+                                <p:splitButton actionListener="#{technologyBean.create}" update="displayItems" oncomplete="PF('itemDialog').show()" style="margin-top:10px;" value="Save" icon="pi pi-check"></p:splitButton>
                             </div>
+
+                            <p:commandButton value="Submit" update="displayItems" oncomplete="PF('itemDialog').show()" style="margin-top:10px;" />
+
+
                         </p:panelGrid>
+                        <p:dialog header="Selected Items" modal="true" showEffect="fade" hideEffect="fade" widgetVar="itemDialog" width="250">
+                            <p:outputPanel id="displayItems">
+                                <p:dataList value="#{technologyBean.selectedCities}" var="city" emptyMessage="No cities selected" style="margin-bottom: 10px;">
+                                    <f:facet name="header">
+                                        Basic
+                                    </f:facet>
+                                    #{city}
+                                </p:dataList>
+                            </p:outputPanel>
+                        </p:dialog>
                     </div>
                 </div>
             </div>
