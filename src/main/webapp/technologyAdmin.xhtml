@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+                template="/WEB-INF/templateAdmin.xhtml">
 
     <ui:define name="content">
         <h:form id="form">
@@ -19,12 +19,12 @@
                         <p:dataTable id="bioData" value="#{technologyBean.list}" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
                             <p:column headerText="id">
                                 <f:facet name="header">ID</f:facet>
-                                <h:outputText value="#{technology.id}"/>
+                                <h:outputText value="#{technology.id_integer}"/>
                             </p:column>
 
                             <p:column headerText="tecnology">
                                 <f:facet name="header">Teknologi</f:facet>
-                                <h:outputText value="#{technology.technologyChoice}" />
+                                <h:outputText value="#{technology.selectedTechnologies}" />
                             </p:column>
 
                             <p:column>
@@ -42,44 +42,33 @@
                         <f:metadata>
                             <f:viewParam name="bookId" />
                         </f:metadata>
-                        <h1>Felter</h1>
+                        <h1>Teknologier</h1>
 
                         <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
-                            <p:outputLabel value="ID" />
-                            <p:inputText disabled="false" value="#{technologyBean.technology.id}" />
+                            <h:inputHidden disabled="false" value="#{technologyBean.technology.id_integer}" />
 
-                            <p:outputLabel value="Teknologi" />
-                            <p:inputText value="#{technologyBean.technology.technologyChoice}" />
-
+                            <h:outputLabel  value="Teknologi:" />
+                            <p:selectCheckboxMenu id="teknologier" value="#{technologyBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                <p:ajax event="itemUnselect" listener="#{technologyBean.onItemUnselect}" />
+                                <f:selectItems value="#{technologyBean.availableTechnologies}" />
+                            </p:selectCheckboxMenu>
 
 
                             <p:outputLabel value="Beskrivelse" />
                             <p:textEditor value="#{technologyBean.technology.richText1}"/>
 
-                            <h:outputLabel for="menu" value="Basic:" />
-                            <p:selectCheckboxMenu id="menu" value="#{technologyBean.selectedCities}" label="Cities"
-                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                <f:selectItems value="#{technologyBean.cities}" />
-                            </p:selectCheckboxMenu>
 
                             <div class="ui-g-12 ui-md-4" style="text-align:left">
-                                <p:splitButton actionListener="#{technologyBean.create}" update="displayItems" oncomplete="PF('itemDialog').show()" style="margin-top:10px;" value="Save" icon="pi pi-check"></p:splitButton>
-                            </div>
 
-                            <p:commandButton value="Submit" update="displayItems" oncomplete="PF('itemDialog').show()" style="margin-top:10px;" />
+                                <p:splitButton actionListener="#{technologyBean.create}" update="@form" value="Gem" icon="pi pi-check"></p:splitButton>
+                                <p:splitButton actionListener="#{technologyBean.createNew}" update="@form" value="Opret ny" icon="pi pi-check"></p:splitButton>
+
+                            </div>
 
 
                         </p:panelGrid>
-                        <p:dialog header="Selected Items" modal="true" showEffect="fade" hideEffect="fade" widgetVar="itemDialog" width="250">
-                            <p:outputPanel id="displayItems">
-                                <p:dataList value="#{technologyBean.selectedCities}" var="city" emptyMessage="No cities selected" style="margin-bottom: 10px;">
-                                    <f:facet name="header">
-                                        Basic
-                                    </f:facet>
-                                    #{city}
-                                </p:dataList>
-                            </p:outputPanel>
-                        </p:dialog>
+
                     </div>
                 </div>
             </div>

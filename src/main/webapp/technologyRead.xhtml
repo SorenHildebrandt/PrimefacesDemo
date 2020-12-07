@@ -38,25 +38,16 @@
             <p:panelGrid columns="4" layout="flex"
                          columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
                          contentStyleClass="ui-fluid">
-                <p:outputLabel for="id" value="ID"/>
-                <p:inputText id="id" value="#{skillsBean.skills.id}"/>
 
-                <p:outputLabel for="name" value="Kompetance"/>
-                <p:inputText id="name" value="#{skillsBean.skills.skill}"/>
 
-                <p:textEditor secure="false" widgetVar="editor1" value="#{skillsBean.skills.text1}" height="300" style="margin-bottom:10px"/>
-                <p:commandButton value="Submit" actionListener="#{skillsBean.create}" update="display" oncomplete="PF('dlg').show()" icon="pi pi-save" />
-                <p:commandButton value="Clear" type="button" onclick="PF('editor2').clear();" icon="pi pi-times" />
+                <h:outputLabel  value="Teknologi:" />
+                <p:selectCheckboxMenu id="teknologier" value="#{technologyBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
+                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                    <p:ajax event="itemUnselect" listener="#{technologyBean.onItemUnselect}" />
+                    <f:selectItems value="#{technologyBean.availableTechnologies}" />
+                </p:selectCheckboxMenu>
 
-                <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
-                    <p:outputPanel id="display">
-                        <h3 style="margin-top:0">Basic</h3>
-                        <h:outputText value="#{skillsBean.skills.text1}" escape="false" />
-
-                        <h3>Custom</h3>
-                        <h:outputText value="#{skillsBean.skills.text2}" escape="false" />
-                    </p:outputPanel>
-                </p:dialog>
+                <p:textEditor secure="true" widgetVar="editor1" value="#{technologyBean.technology.richText1}" height="300" style="margin-bottom:10px"/>
 
             </p:panelGrid>
 

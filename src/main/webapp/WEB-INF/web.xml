@@ -8,6 +8,7 @@
 
   <welcome-file-list>
     <welcome-file>technologyAdmin.xhtml</welcome-file>
+    <!--<welcome-file>technologyAdmin.xhtml</welcome-file>-->
   </welcome-file-list>
   <session-config>
     <session-timeout>45</session-timeout>

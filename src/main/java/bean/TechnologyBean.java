@@ -6,6 +6,7 @@ import org.primefaces.event.UnselectEvent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -14,56 +15,42 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Named("technologyBean")
 @ViewScoped
 public class TechnologyBean implements Serializable {
-    private int id;
-    private String richText1;
-    private String technologyChoice;
     private Technology technology = new Technology();
-    private List<Technology> technologyAvailable;
     private String filter = "";
-    private Technology selectedTechnology =null;
-    private List<String> cities;
-    private String[] selectedCities;
-
+    private List<String> availableTechnologies;
+    private List<String> selectedTechnologies;
+    private List<Technology> list = new ArrayList<>();
 
     @Inject
     private transient TechnologyModel technologyModel;
-
-    private List<Technology> list = new ArrayList<>();
-    private List<Technology> technologies;
 
     public TechnologyBean() {
     }
 
     @PostConstruct
     public void init() {
-        cities = new ArrayList<String>();
-        cities.add("Miami");
-        cities.add("London");
-        cities.add("Paris");
-        cities.add("Istanbul");
-        cities.add("Berlin");
-        cities.add("Barcelona");
-        cities.add("Rome");
-        cities.add("Brasilia");
-        cities.add("Amsterdam");
-        System.out.println("technologyChoice " + technologyChoice);
-
         System.out.println("postconstruct");
-        selectedTechnology=new Technology();
-        technologyAvailable = technologyModel.getAllTechnologies(filter);
+        availableTechnologies = Arrays.asList("Java", "JSF", "Primefaces", "Mongo database", "Lotus Notes", "SharePoint",
+                "Azure");
         find();
     }
 
     public void create() {
         System.out.println("TechnologyBean create");
         technologyModel.create(technology);
-        find();
+
+    }
+
+    public void createNew() {
+        System.out.println("clear felter");
+        System.out.println("create new");
+        technology.setSelectedTechnologies(null);
+        technology.setRichText1(null);
+        technology.setId_integer(0);
     }
 
     public void find() {
@@ -81,12 +68,14 @@ public class TechnologyBean implements Serializable {
         technology=e;
     }
 
-    public int getId() {
-        return id;
-    }
+    public void onItemUnselect(UnselectEvent event) {
+        FacesContext context = FacesContext.getCurrentInstance();
 
-    public void setId(int id) {
-        this.id = id;
+        FacesMessage msg = new FacesMessage();
+        msg.setSummary("Item unselected: " + event.getObject().toString());
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+
+        context.addMessage(null, msg);
     }
 
     public Technology getTechnology() {
@@ -105,7 +94,6 @@ public class TechnologyBean implements Serializable {
         this.filter = filter;
     }
 
-
     public List<Technology> getList() {
         return list;
     }
@@ -114,21 +102,11 @@ public class TechnologyBean implements Serializable {
         this.list = list;
     }
 
-    public List<String> getCities() {
-        return cities;
+    public List<String> getAvailableTechnologies() {
+        return availableTechnologies;
     }
 
-    public void setCities(List<String> cities) {
-        this.cities = cities;
-    }
-
-    public String[] getSelectedCities() {
-        System.out.println("getSelectedCities  " + selectedCities);
-        return selectedCities;
-    }
-
-    public void setSelectedCities(String[] selectedCities) {
-        System.out.println("setSelectedCities  " + selectedCities);
-        this.selectedCities = selectedCities;
+    public void setAvailableTechnologies(List<String> availableTechnologies) {
+        this.availableTechnologies = availableTechnologies;
     }
 }

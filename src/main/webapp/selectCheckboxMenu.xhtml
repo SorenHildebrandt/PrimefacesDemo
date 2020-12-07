@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl>
+                <p:autoUpdate />
+            </p:growl>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Left Side -->
+                    <div class="card card-w-title">
+
+                        <h1>Felter</h1>
+
+                        <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
+
+
+
+
+                            <h:outputLabel for="teknologi" value="Teknologi:" />
+                            <p:selectCheckboxMenu id="teknologi" value="#{selectCheckboxMenuBean.selectedItems}" label="Vælg Teknologi" multiple="true"
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                <p:ajax event="itemUnselect" listener="#{selectCheckboxMenuBean.onItemUnselect}" />
+                                <f:selectItems value="#{selectCheckboxMenuBean.availableItems}" />
+                            </p:selectCheckboxMenu>
+                            <h:commandButton value="submit" action="#{selectCheckboxMenuBean.submit}"/>
+
+                        </p:panelGrid>
+
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
