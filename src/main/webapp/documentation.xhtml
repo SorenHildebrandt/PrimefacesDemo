@@ -1,5 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
     <ui:define name="head">
         <style type="text/css">
@@ -35,11 +35,11 @@
 
                     <h1>SASS Installation</h1>
                     <p>Designer requires SASS to be installed at the command line, refer to the <a href="https://sass-lang.com/install">SASS documentation</a> for installing instructions.</p>
-                
+
                     <h1>Designer Application</h1>
                     <p>This demo application featuring various components is created to test your components while designing your theme. It is a maven application with a built-in jetty server
                         so to run the application locally, extract the contents of the designer zip file and run the following command.</p>
-<pre>
+                    <pre>
 mvn clean jetty:run
 </pre>
                     <p>Then navigate to http://localhost:8080/designer to access the application in your local environment, now it is time to create your own theme.</p>
@@ -58,16 +58,16 @@ mvn clean jetty:run
                     </ul>
 
                     <p>A theme.css file needs to be generated whenever a file imported by the theme.scss is changed, this is done by the following SASS command.</p>
-<pre>
+                    <pre>
 sass --update src/main/webapp/resources/
 </pre>
 
                     <p>Watch mode is handy so that sass listens to your changes and generates the css automatically.</p>
-<pre>
+                    <pre>
 sass -w src/main/webapp/resources/
 </pre>
 
-                    <p>You may now start designing your own theme by changing the variables such as $primaryColor, once the theme.css file is generated, 
+                    <p>You may now start designing your own theme by changing the variables such as $primaryColor, once the theme.css file is generated,
                         use the components menu at the sidebar to view your theme.</p>
 
                     <h1>Video Tutorial</h1>
@@ -76,7 +76,7 @@ sass -w src/main/webapp/resources/
 
                     <h1>Customization</h1>
                     <p>Designer API is located inside the resources/designer folder and an actual theme imports _fonts, _extensions, _variables and the main _core.scss from the designer folder.
-                        In case you need to make structural changes to the design system, add these changes to the _extensions.scss files instead of editing the .scss files inside the designer folder to 
+                        In case you need to make structural changes to the design system, add these changes to the _extensions.scss files instead of editing the .scss files inside the designer folder to
                         avoid any maintenance issues. Designer is updated periodically for improvements and updating is done by replacing the designer folder only. For seamless updates, never edit
                         the designer folder as _extensions.scss file is created for this purpose.
                     </p>
@@ -88,11 +88,11 @@ sass -w src/main/webapp/resources/
                         <li>Define the font-face and import the font files using the JSF resource el expression.</li>
                         <li>Change the $fontFamily at _variables.scss.</li>
                     </ul>
-                    
+
                     <p>Following example uses Roboto font for the theme.</p>
 
                     <i>_fonts.scss</i>
-<pre>
+                    <pre>
 /* roboto-300 - latin */
 @font-face {
 font-family: 'Roboto';
@@ -136,25 +136,25 @@ src: local('Roboto Bold'), local('Roboto-Bold'),
 }
 </pre>
 
-                <i>_variables.scss</i>
-<pre>
+                    <i>_variables.scss</i>
+                    <pre>
 $fontFamily:"Roboto","Helvetica Neue",sans-serif;
 </pre>
 
-                <h1>Theme Size</h1>
-                <p>Component sizes including the font-sizes, margins and paddings are defined using em units which allows changing the overall size, as a result changing the $fontSize variable
-                    is enough to scale the components. Default is 14px and example below creates a bigger theme based on a scale of 16px.</p>
-<pre>
+                    <h1>Theme Size</h1>
+                    <p>Component sizes including the font-sizes, margins and paddings are defined using em units which allows changing the overall size, as a result changing the $fontSize variable
+                        is enough to scale the components. Default is 14px and example below creates a bigger theme based on a scale of 16px.</p>
+                    <pre>
 $fontSize:16px;
 </pre>
-                <h1>Build</h1>
-                <p>Once the theme is ready for use, run the following maven command to generate a jar file to use in your actual application.</p>
-<pre>
+                    <h1>Build</h1>
+                    <p>Once the theme is ready for use, run the following maven command to generate a jar file to use in your actual application.</p>
+                    <pre>
 mvn clean install -P build
 </pre>
-                <p>This command generates a file called primefaces-mytheme-{version}.jar under the target folder. You may now use this theme by including the jar file to the classpath of your application and configure it as
-                    your theme of choice with a context parameter.</p>
-<pre>
+                    <p>This command generates a file called primefaces-mytheme-{version}.jar under the target folder. You may now use this theme by including the jar file to the classpath of your application and configure it as
+                        your theme of choice with a context parameter.</p>
+                    <pre>
 &lt;context-param&gt;
     &lt;param-name>primefaces.THEME&lt;/param-name&gt;
     &lt;param-value>mytheme&lt;/param-value&gt;

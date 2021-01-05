@@ -4,21 +4,20 @@ import entity.Technology;
 import model.TechnologyModel;
 import org.primefaces.event.UnselectEvent;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-@Named("technologyBean")
+@Named("technologyAdminBean")
 @ViewScoped
-public class TechnologyBean implements Serializable {
+public class TechnologyAdminBean implements Serializable {
     private Technology technology = new Technology();
     private String filter = "";
     private List<String> availableTechnologies;
@@ -28,39 +27,32 @@ public class TechnologyBean implements Serializable {
     @Inject
     private transient TechnologyModel technologyModel;
 
-    public TechnologyBean() {
+    public TechnologyAdminBean() {
     }
 
     @PostConstruct
     public void init() {
-        System.out.println("postconstruct");
+        System.out.println("TechnologyAdminBean postconstruct");
         availableTechnologies = Arrays.asList("Java", "JSF", "Primefaces", "Mongo database", "Lotus Notes", "SharePoint",
                 "Azure");
         find();
     }
 
     public void create() {
-        System.out.println("TechnologyBean create");
+        System.out.println("TechnologyAdminBean create");
         technologyModel.create(technology);
-
     }
 
     public void createNew() {
-        System.out.println("clear felter");
-        System.out.println("create new");
+        System.out.println("Clear felter og opret nyt dokument");
         technology.setSelectedTechnologies(null);
         technology.setRichText1(null);
         technology.setId_integer(0);
     }
 
     public void find() {
-        System.out.println("find");
+        System.out.println("TechnologyAdminBean find");
         list = technologyModel.find(filter);
-    }
-
-    public void delete() {
-        technologyModel.delete(technology);
-        find();
     }
 
     public void select(Technology e){

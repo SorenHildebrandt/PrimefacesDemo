@@ -5,55 +5,33 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/template.xhtml">
 
-    <ui:define name="head">
-        <style type="text/css">
-            .ui-panelgrid.form-elements .ui-grc-2 {
-                padding-left: 60px;
-            }
-
-            @media (max-width: 1024px) {
-                .ui-panelgrid.form-elements .ui-grc-2 {
-                    padding-left: 20px;
-                }
-            }
-
-            @media (max-width: 640px) {
-                .ui-panelgrid.form-elements .ui-grc-2 {
-                    padding-left: 6px;
-                }
-            }
-
-            .dialogDemo label {
-
-                line-height: 2.1em;
-            }
-        </style>
-    </ui:define>
-    <ui:define name="title">Primefaces Template</ui:define>
-
     <ui:define name="content">
+        <h:form id="form">
+            <p:growl>
+                <p:autoUpdate />
+            </p:growl>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <!-- Right Side -->
+                    <div class="card card-w-title">
+                        <f:metadata>
+                            <f:viewParam name="bookId" />
+                        </f:metadata>
+                        <h1>Teknologier</h1>
 
-        <body>
-        <h:form id="view">
-            <p:panelGrid columns="4" layout="flex"
-                         columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
-                         contentStyleClass="ui-fluid">
+                        <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
+                            <h:outputLabel  value="ID:" />
+                            <h:outputText disabled="false" value="#{technologyReadBean.technology.id_integer}" />
 
+                            <h:outputLabel  value="Teknologi:" />
+                            <h:outputText disabled="false" value="#{technologyReadBean.technology.selectedTechnologies}" />
 
-                <h:outputLabel  value="Teknologi:" />
-                <p:selectCheckboxMenu id="teknologier" value="#{technologyBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
-                                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                    <p:ajax event="itemUnselect" listener="#{technologyBean.onItemUnselect}" />
-                    <f:selectItems value="#{technologyBean.availableTechnologies}" />
-                </p:selectCheckboxMenu>
-
-                <p:textEditor secure="true" widgetVar="editor1" value="#{technologyBean.technology.richText1}" height="300" style="margin-bottom:10px"/>
-
-            </p:panelGrid>
-
+                            <p:outputLabel value="Beskrivelse" />
+                            <p:textEditor readonly="true" value="#{technologyBean.technology.richText1}"/>
+                        </p:panelGrid>
+                    </div>
+                </div>
+            </div>
         </h:form>
-        </body>
     </ui:define>
 </ui:composition>
-
-

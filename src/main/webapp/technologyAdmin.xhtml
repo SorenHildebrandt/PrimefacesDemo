@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templateAdmin.xhtml">
+                template="/WEB-INF/template.xhtml">
 
     <ui:define name="content">
         <h:form id="form">
@@ -16,7 +16,7 @@
                     <div class="card card-w-title">
 
                         <h1>Liste over teknologier</h1>
-                        <p:dataTable id="bioData" value="#{technologyBean.list}" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
+                        <p:dataTable id="bioData" value="#{technologyAdminBean.list}" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
                             <p:column headerText="id">
                                 <f:facet name="header">ID</f:facet>
                                 <h:outputText value="#{technology.id_integer}"/>
@@ -27,9 +27,14 @@
                                 <h:outputText value="#{technology.selectedTechnologies}" />
                             </p:column>
 
+                            <p:column headerText="text">
+                                <f:facet name="header">Tekst</f:facet>
+                                <h:outputText value="#{technology.richText1}" />
+                            </p:column>
+
                             <p:column>
                                 <f:facet name="header"></f:facet>
-                                <h:commandButton value="Rediger" action="#{technologyBean.select(technology)}"/>
+                                <h:commandButton value="Rediger" action="#{technologyAdminBean.select(technology)}"/>
                             </p:column>
                         </p:dataTable>
 
@@ -45,24 +50,24 @@
                         <h1>Teknologier</h1>
 
                         <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
-                            <h:inputHidden disabled="false" value="#{technologyBean.technology.id_integer}" />
+                            <h:inputHidden disabled="false" value="#{technologyAdminBean.technology.id_integer}" />
 
                             <h:outputLabel  value="Teknologi:" />
-                            <p:selectCheckboxMenu id="teknologier" value="#{technologyBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
+                            <p:selectCheckboxMenu id="teknologier" value="#{technologyAdminBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
                                                   filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                <p:ajax event="itemUnselect" listener="#{technologyBean.onItemUnselect}" />
-                                <f:selectItems value="#{technologyBean.availableTechnologies}" />
+                                <p:ajax event="itemUnselect" listener="#{technologyAdminBean.onItemUnselect}" />
+                                <f:selectItems value="#{technologyAdminBean.availableTechnologies}" />
                             </p:selectCheckboxMenu>
 
 
                             <p:outputLabel value="Beskrivelse" />
-                            <p:textEditor value="#{technologyBean.technology.richText1}"/>
+                            <p:textEditor readonly="false" value="#{technologyAdminBean.technology.richText1}"/>
 
 
                             <div class="ui-g-12 ui-md-4" style="text-align:left">
 
-                                <p:splitButton actionListener="#{technologyBean.create}" update="@form" value="Gem" icon="pi pi-check"></p:splitButton>
-                                <p:splitButton actionListener="#{technologyBean.createNew}" update="@form" value="Opret ny" icon="pi pi-check"></p:splitButton>
+                                <p:splitButton actionListener="#{technologyAdminBean.create}" update="@form" value="Gem" icon="pi pi-check"></p:splitButton>
+                                <p:splitButton actionListener="#{technologyAdminBean.createNew}" update="@form" value="Opret ny" icon="pi pi-check"></p:splitButton>
 
                             </div>
 
