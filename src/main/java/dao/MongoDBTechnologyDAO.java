@@ -6,12 +6,10 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import converter.TechnologyConverter;
 import entity.Technology;
-import model.TechnologyModel;
 import org.bson.types.ObjectId;
 
 public class MongoDBTechnologyDAO {
     private DBCollection col;
-    private String richText1;
 
     public MongoDBTechnologyDAO(MongoClient mongo) {
         this.col = mongo.getDB("hildebrandt-udvikling").getCollection("technology");

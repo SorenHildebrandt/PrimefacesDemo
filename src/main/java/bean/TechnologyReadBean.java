@@ -23,9 +23,6 @@ public class TechnologyReadBean implements Serializable {
     @Inject
     private transient TechnologyModel technologyModel;
 
-    //@Inject
-    //private transient TechnologyModel technologyModel;
-
     public TechnologyReadBean() {
     }
 
@@ -45,8 +42,9 @@ public class TechnologyReadBean implements Serializable {
                 .getRequest();
         String id_string = request.getParameter("id");
         System.out.println("TechnologyReadBean mongoID fra Web URL " + id_string);
+        technology.setId(id_string);
+        technology = technologyModel.readTechnology(technology);
 
-        technology = technologyModel.findMenuDocument(id_string);
     }
 
     public Technology getTechnology() {

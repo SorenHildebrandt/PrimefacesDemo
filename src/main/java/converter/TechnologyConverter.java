@@ -20,6 +20,8 @@ public class TechnologyConverter {
 
 		ObjectId id = (ObjectId) doc.get("_id");
 		technology.setId(id.toString());
+		String richText1 = technology.getRichText1();
+		System.out.println("richtext " + richText1);
 		return technology;
 
 	}

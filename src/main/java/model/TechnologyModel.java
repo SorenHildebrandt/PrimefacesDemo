@@ -7,16 +7,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
 import converter.TechnologyConverter;
 import entity.Technology;
-import dao.MongoDBTechnologyDAO;
 import org.bson.BsonDocument;
 import org.bson.BsonRegularExpression;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -24,6 +20,7 @@ import java.util.logging.Logger;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
 import static com.mongodb.client.model.Updates.set;
+
 import org.bson.json.JsonWriterSettings;
 import org.bson.types.ObjectId;
 
@@ -91,7 +88,6 @@ public class TechnologyModel extends HttpServlet {
         List<Technology> list = new ArrayList<>();
         MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
         FindIterable<Document> iter;
-
         //Läses
         if (filter == null || filter.trim().length() == 0) {
             System.out.println("TechnologyModel find (collection.find)");
@@ -117,18 +113,23 @@ public class TechnologyModel extends HttpServlet {
         return list;
     }
 
-    public Technology findMenuDocument(String id_string) {
-        System.out.println("Metode findMenuDocument i TechnologyModel " + id_string);
+    public Technology readTechnology(Technology technology) {
+        System.out.println("readTechnology");
 
-        MongoDBTechnologyDAO personDAO = new MongoDBTechnologyDAO(mongoClient);
-        Technology technology = new Technology();
-        technology.setId(id_string);
+        DB db = mongoClient.getDB("hildebrandt-udvikling");
+        DBCollection coll = db.getCollection("technology");
+        System.out.println("database " + db);
+        System.out.println("coll " + coll);
+        DBObject query = BasicDBObjectBuilder.start()
+                .append("_id", new ObjectId(technology.getId())).get();
+        DBObject data = coll.findOne(query);
+        System.out.println("readTechnology DBObject query " + query);
+        System.out.println("readTechnology DBObject data " + data);
 
-        personDAO.readTechnology(technology);
-
-        System.out.println("TechnologyModel technology " + technology);
-    return technology;
+        return TechnologyConverter.toTechnology(data);
+        }
     }
 
 
-}
+
+
