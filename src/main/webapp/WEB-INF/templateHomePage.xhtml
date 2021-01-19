@@ -23,14 +23,14 @@
 
 <h:body>
     <div class="layout-wrapper">
-       <ui:include src="./sidebarAdmin.xhtml" />
-        <ui:include src="./topbarAdmin.xhtml" />
+       <!--<ui:include src="./sidebarHomePage.xhtml" />-->
+        <ui:include src="./topbarHomePage.xhtml" />
 
-        <div class="layout-content">
+        <div style="margin-left: 0px; padding: 84px 24px 24px 24px;">
             <ui:insert name="content"></ui:insert>
         </div>
 
-        <ui:include src="./footerAdmin.xhtml" />
+        <ui:include src="./footerHomePage.xhtml" />
     </div>
 
     <h:outputStylesheet name="layout/style/layout.css"  />

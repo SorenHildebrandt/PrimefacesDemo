@@ -11,70 +11,48 @@
                 <p:autoUpdate />
             </p:growl>
             <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-lg-6">
-                    <!-- Left Side -->
-                    <div class="card card-w-title">
+                <div class="card">
+                    <h1>Teknologier</h1>
 
-                        <h1>Liste over teknologier</h1>
-                        <p:dataTable id="bioData" value="#{technologyAdminBean.list}" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
-                            <p:column headerText="id">
-                                <f:facet name="header">ID</f:facet>
-                                <h:outputText value="#{technology.id_integer}"/>
-                            </p:column>
+                    <p:panelGrid  cellpadding="5" columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
+                        <h:inputHidden disabled="false" value="#{technologyAdminBean.technology.id_integer}" />
+                        <h:outputLabel  value="Teknologi:" />
+                        <p:selectCheckboxMenu id="teknologier" value="#{technologyAdminBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
+                                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                            <p:ajax event="itemUnselect" listener="#{technologyAdminBean.onItemUnselect}" />
+                            <f:selectItems value="#{technologyAdminBean.availableTechnologies}" />
+                        </p:selectCheckboxMenu>
 
-                            <p:column headerText="tecnology">
-                                <f:facet name="header">Teknologi</f:facet>
-                                <h:outputText value="#{technology.selectedTechnologies}" />
-                            </p:column>
+                        <p:outputLabel value="Beskrivelse" />
+                        <p:textEditor readonly="false" value="#{technologyAdminBean.technology.richText1}"/>
 
-                            <p:column headerText="text">
-                                <f:facet name="header">Tekst</f:facet>
-                                <h:outputText value="#{technology.richText1}" />
-                            </p:column>
-
-                            <p:column>
-                                <f:facet name="header"></f:facet>
-                                <h:commandButton value="Rediger" action="#{technologyAdminBean.select(technology)}"/>
-                            </p:column>
-                        </p:dataTable>
-
-                        <hr/>
-                    </div>
+                        <p:row style="margin-top:20px; float: left">
+                            <p:splitButton actionListener="#{technologyAdminBean.create}" update="@form" value="Gem" icon="pi pi-check" style="width: 80px; margin-right: 10px"></p:splitButton>
+                            <p:splitButton actionListener="#{technologyAdminBean.createNew}" update="@form" value="Opret" icon="pi pi-check" style="width: 80px"></p:splitButton>
+                        </p:row>
+                    </p:panelGrid>
                 </div>
-                <div class="ui-g-12 ui-lg-6">
-                    <!-- Right Side -->
-                    <div class="card card-w-title">
-                        <f:metadata>
-                            <f:viewParam name="bookId" />
-                        </f:metadata>
-                        <h1>Teknologier</h1>
+            </div>
 
-                        <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
-                            <h:inputHidden disabled="false" value="#{technologyAdminBean.technology.id_integer}" />
+            <div class="ui-g ui-fluid">
+                <div class="card">
+                    <h1>Liste over teknologier</h1>
+                    <p:dataTable id="bioData" value="#{technologyAdminBean.list}" style="width: 1005px" var="technology" reflow="true" rowKey="#{technology.technologyChoice}" paginator="true" rows="10" >
+                        <p:column headerText="id" style="width: 10px">
+                            <f:facet name="header">ID</f:facet>
+                            <h:outputText value="#{technology.id_integer}"/>
+                        </p:column>
 
-                            <h:outputLabel  value="Teknologi:" />
-                            <p:selectCheckboxMenu id="teknologier" value="#{technologyAdminBean.technology.selectedTechnologies}" label="Vælg Teknologi" multiple="true"
-                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                <p:ajax event="itemUnselect" listener="#{technologyAdminBean.onItemUnselect}" />
-                                <f:selectItems value="#{technologyAdminBean.availableTechnologies}" />
-                            </p:selectCheckboxMenu>
+                        <p:column headerText="tecnology">
+                            <f:facet name="header">Teknologi</f:facet>
+                            <h:outputText value="#{technology.selectedTechnologies}" />
+                        </p:column>
 
-
-                            <p:outputLabel value="Beskrivelse" />
-                            <p:textEditor readonly="false" value="#{technologyAdminBean.technology.richText1}"/>
-
-
-                            <div class="ui-g-12 ui-md-4" style="text-align:left">
-
-                                <p:splitButton actionListener="#{technologyAdminBean.create}" update="@form" value="Gem" icon="pi pi-check"></p:splitButton>
-                                <p:splitButton actionListener="#{technologyAdminBean.createNew}" update="@form" value="Opret ny" icon="pi pi-check"></p:splitButton>
-
-                            </div>
-
-
-                        </p:panelGrid>
-
-                    </div>
+                        <p:column style="width: 70px">
+                            <f:facet name="header"></f:facet>
+                            <h:commandButton value="Rediger" action="#{technologyAdminBean.select(technology)}"/>
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </div>
         </h:form>

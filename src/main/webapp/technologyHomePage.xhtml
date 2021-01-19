@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templateHomePage.xhtml">
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:menubar orientation="horizontal" style="margin-top:20px">
+                <p:submenu label="Udvikling/teknologier" icon="pi pi-check">
+                    <p:menuitem style="width: 200px" value="Java / JSF / MongoDb" url="/primefaces-demo/technologyHomePage.xhtml?id=5ff43bd0549216141977d523"/>
+                    <p:menuitem value="Lotus Notes" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Sharepoint" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Powerapps" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Deployment" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                </p:submenu>
+
+                <p:submenu label="Fagområder" icon="pi pi-check">
+                    <p:menuitem value="Intranet" url="/primefaces-demo/technologyHomePage.xhtml?id=5ff43bd0549216141977d523"/>
+                    <p:menuitem value="Workflow applikationer" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Sharepoint" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Powerapps" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Online møder" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Samarbejdsværktøjer" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Kundekontakt" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+
+                </p:submenu>
+            </p:menubar>
+
+
+
+            <!--<p:tabMenu activeIndex="#{param.i}">
+                <p:menuitem value="Lotus Notes" outcome="/technologyHomePage?id=5fca01f1d18cc80dabdf475d" icon="ui-icon-star"/>
+                <f:param name="i" value="0" />
+                <p:menuitem value="Java teknologier" outcome="/technologyHomePage?id=5ff43bd0549216141977d523" icon="ui-icon-search" />
+                <f:param name="i" value="1" />
+                <p:menuitem value="Intranet" outcome="/technologyHomePage?id=5ff43bd0549216141977d523" icon="ui-icon-search" />
+                <f:param name="i" value="2"/>
+                <p:menuitem value="Investering" outcome="/technologyHomePage?id=5ff43bd0549216141977d523" icon="ui-icon-search" />
+                <f:param name="i" value="3"/>
+            </p:tabMenu>-->
+            <p:growl>
+                <p:autoUpdate />
+            </p:growl>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12">
+                    <!-- Right Side -->
+                    <div class="card">
+
+                        <f:metadata>
+                            <f:viewParam name="bookId" />
+                        </f:metadata>
+                        <h1>Teknologier</h1>
+
+                        <p:panelGrid columns="4" layout="flex" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="ui-fluid">
+                            <h:outputLabel  value="ID:" />
+                            <h:outputText disabled="false" value="#{technologyReadBean.technology.id_integer}" />
+
+                            <h:outputLabel  value="Teknologi:" />
+                            <h:outputText disabled="false" value="#{technologyReadBean.technology.selectedTechnologies}" />
+
+                            <p:outputLabel value="Beskrivelse" />
+                            <h:outputText disabled="false" value="#{technologyReadBean.technology.richText1}" />
+
+                        </p:panelGrid>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
