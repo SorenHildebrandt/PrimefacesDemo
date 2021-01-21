@@ -7,7 +7,7 @@
 <display-name>Archetype Created Web Application</display-name>
 
   <welcome-file-list>
-    <welcome-file>index.xhtml</welcome-file>
+    <welcome-file>technologyHomePage.xhtml</welcome-file>
     <!--<welcome-file>technologyAdmin.xhtml</welcome-file>-->
   </welcome-file-list>
   <session-config>

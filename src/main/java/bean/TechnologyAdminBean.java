@@ -33,7 +33,7 @@ public class TechnologyAdminBean implements Serializable {
     @PostConstruct
     public void init() {
         System.out.println("TechnologyAdminBean postconstruct");
-        availableTechnologies = Arrays.asList("Java", "JSF", "Primefaces", "Mongo database", "Lotus Notes", "SharePoint",
+        availableTechnologies = Arrays.asList("Velkommen, Java", "JSF", "Primefaces", "Mongo database", "Lotus Notes", "SharePoint",
                 "Azure");
         find();
     }

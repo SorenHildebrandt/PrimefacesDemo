@@ -87,6 +87,7 @@ public class TechnologyModel extends HttpServlet {
         System.out.println("TechnologyModel find" + filter);
         List<Technology> list = new ArrayList<>();
         MongoCollection<Document> collection = mongoClient.getDatabase("hildebrandt-udvikling").getCollection("technology");
+
         FindIterable<Document> iter;
         //Läses
         if (filter == null || filter.trim().length() == 0) {
@@ -118,17 +119,30 @@ public class TechnologyModel extends HttpServlet {
 
         DB db = mongoClient.getDB("hildebrandt-udvikling");
         DBCollection coll = db.getCollection("technology");
+
         System.out.println("database " + db);
         System.out.println("coll " + coll);
         DBObject query = BasicDBObjectBuilder.start()
                 .append("_id", new ObjectId(technology.getId())).get();
+
         DBObject data = coll.findOne(query);
         System.out.println("readTechnology DBObject query " + query);
         System.out.println("readTechnology DBObject data " + data);
 
         return TechnologyConverter.toTechnology(data);
         }
+
+    public entity.Technology findDocumentById(String id) {
+        System.out.println("findDocumentById");
+        DB db = mongoClient.getDB("hildebrandt-udvikling");
+        DBCollection coll = db.getCollection("technology");
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+
+        DBObject dbObj = coll.findOne(query);
+        return TechnologyConverter.toTechnology(dbObj);
     }
+}
 
 
 
