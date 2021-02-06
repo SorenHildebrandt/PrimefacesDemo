@@ -5,17 +5,31 @@
         <div class="layout-topbar-content">
             <a href="#" id="menu-btn" class="menu-btn"></a>
             <p:outputLabel style="color: white; font-size: large" title="Hildebrandt-udvikling">Hildebrandt - udvikling</p:outputLabel>
-            <!--<h1 style="color: white;padding-bottom: 300px">Hildebrandt admistration</h1>-->
-           <!-- <h:link styleClass="topbar-link" outcome="/technologyAdmin">Hildebrandt Admin</h:link>-->
+
         </div>
+        <h:form>
+            <p:menubar orientation="horizontal" style="margin-top:0px">
+                <p:submenu label="Udvikling/teknologier" icon="pi pi-check">
+                    <p:menuitem style="width: 200px" value="Java / JSF / MongoDb" url="/primefaces-demo/technologyHomePage.xhtml?id=5ff43bd0549216141977d523"/>
+                    <p:menuitem value="Lotus Notes" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Sharepoint" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Powerapps" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Deployment" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                </p:submenu>
 
-           <!-- <p:tabMenu activeIndex="#{param.i}">
-                <p:menuitem value="Lotus Notes" outcome="/technologyHomePage?id=5fca01f1d18cc80dabdf475d" icon="ui-icon-star"/>
-                <f:param name="i" value="0" />
-                <p:menuitem value="Java teknologier" outcome="/technologyHomePage?id=5ff43bd0549216141977d523" icon="ui-icon-search" />
-                <f:param name="i" value="1" />
-            </p:tabMenu>-->
+                <p:submenu label="Fagområder" icon="pi pi-check">
+                    <p:menuitem value="Intranet" url="/primefaces-demo/technologyHomePage.xhtml?id=5ff43bd0549216141977d523"/>
+                    <p:menuitem value="Workflow applikationer" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Sharepoint" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Powerapps" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Online møder" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Samarbejdsværktøjer" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
+                    <p:menuitem value="Kundekontakt" url="/primefaces-demo/technologyHomePage.xhtml?id=5fca01f1d18cc80dabdf475d"/>
 
+                </p:submenu>
+            </p:menubar>
+
+        </h:form>
 
 
 
